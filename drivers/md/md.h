@@ -36,6 +36,7 @@ enum md_submodule_id {
 	ID_RAID4	= 4,
 	ID_RAID5	= 5,
 	ID_RAID6	= 6,
+	ID_RAID7        = 7,
 	ID_RAID10	= 10,
 	ID_CLUSTER,
 	ID_BITMAP,
@@ -1049,7 +1050,7 @@ static inline bool mddev_is_dm(struct mddev *mddev)
 static inline bool raid_has_parity(struct mddev *mddev)
 {
 	return mddev->level == ID_RAID4 || mddev->level == ID_RAID5 ||
-	       mddev->level == ID_RAID6;
+	       mddev->level == ID_RAID6 || mddev->level == ID_RAID7;
 }
 
 static inline void mddev_trace_remap(struct mddev *mddev, struct bio *bio,
