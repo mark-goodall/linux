@@ -5,6 +5,7 @@
 #include <linux/raid/xor.h>
 #include <linux/dmaengine.h>
 #include <linux/local_lock.h>
+#include <linux/bio.h>
 
 /*
  *
