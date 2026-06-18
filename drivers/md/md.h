@@ -1046,7 +1046,7 @@ static inline bool mddev_is_dm(struct mddev *mddev)
 	return !mddev->gendisk;
 }
 
-static inline bool raid_is_456(struct mddev *mddev)
+static inline bool raid_has_parity(struct mddev *mddev)
 {
 	return mddev->level == ID_RAID4 || mddev->level == ID_RAID5 ||
 	       mddev->level == ID_RAID6;

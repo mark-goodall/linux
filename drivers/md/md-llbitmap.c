@@ -366,14 +366,14 @@ static void llbitmap_infect_dirty_bits(struct llbitmap *llbitmap,
 				       struct llbitmap_page_ctl *pctl,
 				       unsigned int block)
 {
-	bool level_456 = raid_is_456(llbitmap->mddev);
+	bool has_parity = raid_has_parity(llbitmap->mddev);
 	unsigned int io_size = llbitmap->io_size;
 	int pos;
 
 	for (pos = block * io_size; pos < (block + 1) * io_size; pos++) {
 		switch (pctl->state[pos]) {
 		case BitUnwritten:
-			pctl->state[pos] = level_456 ? BitNeedSync : BitDirty;
+			pctl->state[pos] = has_parity ? BitNeedSync : BitDirty;
 			break;
 		case BitClean:
 			pctl->state[pos] = BitDirty;
@@ -604,7 +604,7 @@ static enum llbitmap_state llbitmap_state_machine(struct llbitmap *llbitmap,
 {
 	struct mddev *mddev = llbitmap->mddev;
 	enum llbitmap_state state = BitNone;
-	bool level_456 = raid_is_456(llbitmap->mddev);
+	bool level_456 = raid_has_parity(llbitmap->mddev);
 	bool need_resync = false;
 	bool need_recovery = false;
 

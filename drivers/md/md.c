@@ -9427,7 +9427,7 @@ static bool sync_io_within_limit(struct mddev *mddev)
 	 * RESYNC_PAGES(64k) per IO.
 	 */
 	return atomic_read(&mddev->recovery_active) <
-	       (raid_is_456(mddev) ? 8 : 128) * sync_io_depth(mddev);
+	       (raid_has_parity(mddev) ? 8 : 128) * sync_io_depth(mddev);
 }
 
 #define SYNC_MARKS	10
